@@ -1,5 +1,4 @@
 package lab2;
-import java.lang.Object;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -28,7 +27,6 @@ public class lab2  {
 			e.printErrorCode();
 		} catch (Throwable t) {
 
-
 		} finally {
 			//kod zawsze wykonywalny
 		}
@@ -48,10 +46,11 @@ public class lab2  {
 			System.out.println("To nie byla liczba, podaj jeszcze raz");
 			klawiatura.next();
 		}
+		
 		Wakacje[] tab = null;
 		int count = klawiatura.nextInt();	
 		try {
-		tab = new Wakacje[count];
+		tab = new Wakacje[count]; // w przypadku podania tutaj liczby ujemnej ;)
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -59,7 +58,7 @@ public class lab2  {
 	
 		for (int i = 0; i < count; i++) {
 			Wakacje wak = new Wakacje();
-			System.out.println("Obiekt numer: " + i+1);
+			System.out.println("Obiekt numer: " + (i+1));
 			System.out.println("Podaj kraj: ");
 			wak.kraj = klawiatura.next();
 			System.out.println("Podaj miejscowoœæ: ");
@@ -76,7 +75,7 @@ public class lab2  {
 			tab[i] = wak;
 		}
 		
-		//utowrzeni pliku
+
 		File file = new File("plik.txt");
 		BufferedWriter writer = null;
 		try {
@@ -90,11 +89,13 @@ public class lab2  {
 			System.out.println(tab[i].toString());
 			try {
 				writer.write(tab[i].toString());
+				writer.write("\r\n");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 		
+		klawiatura.close();
 		try {
 			writer.close();
 		} catch (IOException e) {
@@ -103,10 +104,7 @@ public class lab2  {
 		
 	}
 
-
-
 }
-
 
 class MyException extends Exception{
 	public String desciption = "Liczba mniejsza od 0"; 
